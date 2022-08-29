@@ -12,7 +12,9 @@ export interface Typegen0 {
     guards: never;
     delays: never;
   };
-  eventsCausingActions: {};
+  eventsCausingActions: {
+    filter: "FILTER";
+  };
   eventsCausingServices: {};
   eventsCausingGuards: {};
   eventsCausingDelays: {};
