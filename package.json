@@ -20,10 +20,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.18.13",
-<<<<<<< HEAD
-=======
     "@faker-js/faker": "^7.4.0",
->>>>>>> 70a7135a3d0bd8d41a8b40f8c5dec6400a386b1e
     "@types/node": "18.7.13",
     "@types/react": "18.0.17",
     "@types/react-dom": "18.0.6",
