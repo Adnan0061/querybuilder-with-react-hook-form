@@ -85,7 +85,9 @@ export const filterMachine = createMachine(
           return messages.filter((value) => {
             let output = true;
             if (ev.status) {
-              output = value.status === ev.status;
+              //TODO implement beter comparaison
+              output =
+                JSON.stringify(value.status) === JSON.stringify(ev.status);
             }
             if (ev.assignee) {
               output = value.assignee === ev.assignee;

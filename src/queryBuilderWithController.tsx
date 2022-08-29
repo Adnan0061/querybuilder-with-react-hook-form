@@ -12,9 +12,14 @@ import {
 } from './options';
 
 import { useMachine } from '@xstate/react';
+import { useEffect } from 'react';
 
 const QueryBuilderWithController = () => {
   const [state, send] = useMachine(filterMachine);
+
+  useEffect(() => {
+    send('START');
+  });
   const {
     control,
     handleSubmit,
@@ -56,6 +61,7 @@ const QueryBuilderWithController = () => {
     };
 
     send({ type: 'FILTER', ...filterQuery });
+    
   };
 
   return (
