@@ -2,39 +2,39 @@ import { faker } from '@faker-js/faker';
 import { assign, createMachine } from 'xstate';
 import { Message } from './types';
 
-const messages: Message[] = [
+export const messages: Message[] = [
   {
     assignee: faker.internet.userName(),
     body: faker.lorem.paragraph(1),
-    inbox: faker.lorem.word(2),
+    inbox: faker.lorem.word(1),
     status: [faker.datatype.number({ min: 0, max: 2 })],
     team: faker.commerce.department(),
   },
   {
     assignee: faker.internet.userName(),
     body: faker.lorem.paragraph(1),
-    inbox: faker.lorem.word(2),
+    inbox: faker.lorem.word(1),
     status: [faker.datatype.number({ min: 0, max: 2 })],
     team: faker.commerce.department(),
   },
   {
     assignee: faker.internet.userName(),
     body: faker.lorem.paragraph(1),
-    inbox: faker.lorem.word(2),
+    inbox: faker.lorem.word(1),
     status: [faker.datatype.number({ min: 0, max: 2 })],
     team: faker.commerce.department(),
   },
   {
     assignee: faker.internet.userName(),
     body: faker.lorem.paragraph(1),
-    inbox: faker.lorem.word(2),
+    inbox: faker.lorem.word(1),
     status: [faker.datatype.number({ min: 0, max: 2 })],
     team: faker.commerce.department(),
   },
   {
     assignee: faker.internet.userName(),
     body: faker.lorem.paragraph(1),
-    inbox: faker.lorem.word(2),
+    inbox: faker.lorem.word(1),
     status: [faker.datatype.number({ min: 0, max: 2 })],
     team: faker.commerce.department(),
   },
@@ -60,6 +60,7 @@ export const filterMachine = createMachine(
         data: Message[];
       },
     },
+    initial: 'idle',
     states: {
       idle: {
         on: {
