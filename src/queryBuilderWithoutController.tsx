@@ -1,9 +1,12 @@
+import { useMachine } from "@xstate/react";
 import { Controller, useFieldArray, useForm } from "react-hook-form";
 import { ImBin } from "react-icons/im";
 import Select from "react-select";
+import { filterMachine } from "./filterMachine";
 import { assigneeOptionsList, filterOptionsList, inboxOptionsList, operatorOptionsList, statusOptionsList, teamOptionsList } from "./options";
 
 const QueryBuilderWithoutController = () => {
+  const [state, send] = useMachine(filterMachine, {});
   const {
     control,
     handleSubmit,
@@ -64,29 +67,29 @@ const QueryBuilderWithoutController = () => {
                   }}
                 />
 
-                <Controller
+                {/* <Controller
                   name={`filter.${index}.operatorOptions`}
                   control={control}
                   render={({ field }) => {
-                    return (
-                      <Select
-                        className="w-[26%]"
-                        {...field}
-                        options={
-                          filterOptionsArray[index].filterOptions.value === "status"
-                            ? operatorOptionsList("status")
-                            : filterOptionsArray[index].filterOptions.value === "agent_id"
-                            ? operatorOptionsList("agent_id")
-                            : filterOptionsArray[index].filterOptions.value === "inbox_id"
-                            ? operatorOptionsList("inbox_id")
-                            : filterOptionsArray[index].filterOptions.value === "team_id"
-                            ? operatorOptionsList("team_id")
-                            : [{ value: "null", label: "null" }]
-                        }
-                      />
-                    );
-                  }}
+                    return ( */}
+                <Select
+                  className="w-[26%]"
+                  // {...field}
+                  options={
+                    filterOptionsArray[index].filterOptions.value === "status"
+                      ? operatorOptionsList("status")
+                      : filterOptionsArray[index].filterOptions.value === "agent_id"
+                      ? operatorOptionsList("agent_id")
+                      : filterOptionsArray[index].filterOptions.value === "inbox_id"
+                      ? operatorOptionsList("inbox_id")
+                      : filterOptionsArray[index].filterOptions.value === "team_id"
+                      ? operatorOptionsList("team_id")
+                      : [{ value: "null", label: "null" }]
+                  }
                 />
+                {/* );
+                  }}
+                /> */}
 
                 <Controller
                   name={`filter.${index}.valueOptions`}
