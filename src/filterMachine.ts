@@ -44,7 +44,7 @@ export const filterMachine = createMachine(
   {
     tsTypes: {} as import('./filterMachine.typegen').Typegen0,
     context: {
-      data: [] as Message[],
+      data: [],
     },
     schema: {
       events: {} as
@@ -56,6 +56,9 @@ export const filterMachine = createMachine(
             team?: string;
             inbox?: string;
           },
+      context: {} as {
+        data: Message[];
+      },
     },
     states: {
       idle: {
