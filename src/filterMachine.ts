@@ -86,7 +86,7 @@ export const filterMachine =
     {
       actions: {
         filter: assign({
-          data: (_, ev: any) => {
+          data: (_, ev) => {
             return messages.filter((value) => {
               let output = true;
               if (ev.status) {
