@@ -13,11 +13,28 @@ export interface Typegen0 {
     delays: never;
   };
   eventsCausingActions: {
-    filter: "FILTER";
+    filter: "SELECT FILTER";
+    operator: "OPERATOR CHANGE";
+    value: "VALUE CHANGE";
   };
   eventsCausingServices: {};
   eventsCausingGuards: {};
   eventsCausingDelays: {};
-  matchesStates: "idle" | "work";
+  matchesStates:
+    | "filter_selected"
+    | "filter_selected.default value"
+    | "filter_selected.default_operator"
+    | "filter_selected.selected_operator"
+    | "filter_selected.selected_value"
+    | "idle"
+    | "submit"
+    | "work"
+    | {
+        filter_selected?:
+          | "default value"
+          | "default_operator"
+          | "selected_operator"
+          | "selected_value";
+      };
   tags: never;
 }

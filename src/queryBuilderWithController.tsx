@@ -12,9 +12,13 @@ const QueryBuilderWithController = () => {
 
   useEffect(() => {
     send("START");
-    console.log(state.value);
-    console.log(state.context.filterType);
-  }, [state.context.filterType]);
+    // console.log(state.value);
+    // console.log(state.context.filterType);
+  });
+
+  // console.log(state.value, state.value.filter_selected);
+  console.log(state.context.filterType, state.context.operatorType, state.context.valueType);
+
   const {
     control,
     handleSubmit,
@@ -33,7 +37,7 @@ const QueryBuilderWithController = () => {
     mode: "onBlur",
   });
 
-  const filterOptionsArray = watch("filter");
+  // const filterOptionsArray = watch("filter");
 
   const { fields, append, remove } = useFieldArray({
     name: "filter",
@@ -41,22 +45,23 @@ const QueryBuilderWithController = () => {
   });
 
   const onSubmit = (data: ConversationFilter) => {
-    const options = data.filter[0].filterOptions.value;
-    const value = data.filter[0].valueOptions.value;
-    const filterQuery: {
-      status?: number[];
-      assignee?: string;
-      team?: string;
-      inbox?: string;
-    } = {
-      status: options === "status" ? (value as number[]) : undefined,
-      assignee: options === "agent_id" ? (value as string) : undefined,
-      inbox: options === "inbox_id" ? (value as string) : undefined,
-      team: options === "team_id" ? (value as string) : undefined,
-    };
-
-    send({ type: "FILTER", ...filterQuery });
+    console.log(data);
+    // const options = data.filter[0].filterOptions.value;
+    // const value = data.filter[0].valueOptions.value;
+    // const filterQuery: {
+    //   status?: number[];
+    //   assignee?: string;
+    //   team?: string;
+    //   inbox?: string;
+    // } = {
+    //   status: options === "status" ? (value as number[]) : undefined,
+    //   assignee: options === "agent_id" ? (value as string) : undefined,
+    //   inbox: options === "inbox_id" ? (value as string) : undefined,
+    //   team: options === "team_id" ? (value as string) : undefined,
+    // };
+    send({ type: "SUBMIT" });
   };
+  console.log(state.value);
 
   return (
     <div className="mx-auto my-9 p-5 w-2/3 rounded-lg bg-slate-100">
@@ -74,7 +79,7 @@ const QueryBuilderWithController = () => {
           </span>
         </div>
       </div>
-      <form onSubmit={handleSubmit(onSubmit)} className="">
+      <form onSubmit={handleSubmit(onSubmit)}>
         {fields.map((item, index) => {
           // console.log(item);
           return (
@@ -88,7 +93,7 @@ const QueryBuilderWithController = () => {
                   }}
                 /> */}
 
-                <Select className="w-[26%]" onChange={(e) => (state.context.filterType = e?.value)} options={filterOptionsList} />
+                <Select className="w-[26%]" onChange={(e) => send({ type: "SELECT FILTER", value: e?.value })} defaultValue={filterOptionsList[0]} options={filterOptionsList} />
 
                 {/* <Controller
                   name={`filter.${index}.operatorOptions`}
@@ -98,14 +103,19 @@ const QueryBuilderWithController = () => {
                 <Select
                   className="w-[26%]"
                   // {...field}
+                  defaultValue={() => {
+                    const a = operatorOptionsList("status");
+                    return a[0];
+                  }}
+                  onChange={(e) => state.value.filter_selected && send({ type: "OPERATOR CHANGE", value: e?.value })}
                   options={
-                    filterOptionsArray[index].filterOptions.value === "status"
+                    state.context.filterType === "status"
                       ? operatorOptionsList("status")
-                      : filterOptionsArray[index].filterOptions.value === "agent_id"
+                      : state.context.filterType === "agent_id"
                       ? operatorOptionsList("agent_id")
-                      : filterOptionsArray[index].filterOptions.value === "inbox_id"
+                      : state.context.filterType === "inbox_id"
                       ? operatorOptionsList("inbox_id")
-                      : filterOptionsArray[index].filterOptions.value === "team_id"
+                      : state.context.filterType === "team_id"
                       ? operatorOptionsList("team_id")
                       : [{ value: "null", label: "null" }]
                   }
@@ -122,14 +132,15 @@ const QueryBuilderWithController = () => {
                 <Select
                   className="w-[40%]"
                   // {...field}
+                  onChange={(e) => state.value.filter_selected && send({ type: "VALUE CHANGE", value: e?.value })}
                   options={
-                    filterOptionsArray[index].filterOptions.value === "status"
+                    state.context.filterType === "status"
                       ? statusOptionsList
-                      : filterOptionsArray[index].filterOptions.value === "agent_id"
+                      : state.context.filterType === "agent_id"
                       ? assigneeOptionsList
-                      : filterOptionsArray[index].filterOptions.value === "inbox_id"
+                      : state.context.filterType === "inbox_id"
                       ? inboxOptionsList
-                      : filterOptionsArray[index].filterOptions.value === "team_id"
+                      : state.context.filterType === "team_id"
                       ? teamOptionsList
                       : [{ value: "null", label: "null" }]
                   }
