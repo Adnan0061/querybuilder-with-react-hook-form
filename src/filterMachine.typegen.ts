@@ -3,6 +3,7 @@
 export interface Typegen0 {
   "@@xstate/typegen": true;
   internalEvents: {
+    "": { type: "" };
     "xstate.init": { type: "xstate.init" };
   };
   invokeSrcNameMap: {};
@@ -13,28 +14,22 @@ export interface Typegen0 {
     delays: never;
   };
   eventsCausingActions: {
-    filter: "SELECT FILTER";
+    firstValues: "";
     operator: "OPERATOR CHANGE";
+    setOperators: "SELECT FILTER";
+    setPossibleValues: "";
+    submit: "SUBMIT";
     value: "VALUE CHANGE";
   };
   eventsCausingServices: {};
   eventsCausingGuards: {};
   eventsCausingDelays: {};
   matchesStates:
-    | "filter_selected"
-    | "filter_selected.default value"
-    | "filter_selected.default_operator"
-    | "filter_selected.selected_operator"
-    | "filter_selected.selected_value"
+    | "firstValues"
     | "idle"
+    | "options"
+    | "possibleValues"
     | "submit"
-    | "work"
-    | {
-        filter_selected?:
-          | "default value"
-          | "default_operator"
-          | "selected_operator"
-          | "selected_value";
-      };
+    | "work";
   tags: never;
 }
