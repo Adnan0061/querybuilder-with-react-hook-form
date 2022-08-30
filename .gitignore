@@ -8,6 +8,9 @@
 pnpm-lock.yaml
 yarn.lock
 
+#husky
+.husky/_/post-merge.sh
+
 # testing
 /coverage
 

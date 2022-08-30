@@ -1,6 +1,6 @@
 import { assign, createMachine } from 'xstate';
 import { messages, options } from './data';
-import { assignOperators, assignValues } from './helpers/assigns';
+import { assignOperators, assignValues } from './helpers';
 import type { InputProps, Message, Operators, Options } from './types';
 
 export const filterMachine = createMachine(

@@ -1,18 +1,15 @@
-import { faker } from '@faker-js/faker';
 import { messages } from '../data';
-import type { InputProps, Message, Options } from '../types';
-
-const statusList: InputProps[] = [
-  { value: [0, 1, 2], label: 'all' },
-  { value: [0], label: 'open' },
-  { value: [1], label: 'closed' },
-  { value: [2], label: 'snoozed' },
-];
+import type { InputProps, Options } from '../types';
 
 export function assignValues(filter: Options): InputProps[] {
   switch (filter) {
     case 'status':
-      return statusList;
+      return [
+        { value: [0, 1, 2], label: 'all' },
+        { value: [0], label: 'open' },
+        { value: [1], label: 'closed' },
+        { value: [2], label: 'snoozed' },
+      ];
     case 'agent_id':
       return messages.map((value) => ({
         value: value.assignee,
@@ -50,4 +47,3 @@ export const assignOperators = (filter: Options): InputProps[] => {
       ];
   }
 };
-
