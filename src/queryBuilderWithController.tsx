@@ -25,7 +25,7 @@ const QueryBuilderWithController = () => {
 
   // console.log(state.value, state.value.filter_selected);
   console.log(
-    state.context.filterType,
+    state.context.option,
     state.context.operatorType,
     state.context.value
   );
@@ -131,17 +131,17 @@ const QueryBuilderWithController = () => {
                     return a[0];
                   }}
                   onChange={(e) =>
-                    state.context.filterType &&
+                    state.context.option &&
                     send({ type: 'OPERATOR CHANGE', value: e?.value })
                   }
                   options={
-                    state.context.filterType === 'status'
+                    state.context.option === 'status'
                       ? operatorOptionsList('status')
-                      : state.context.filterType === 'agent_id'
+                      : state.context.option === 'agent_id'
                       ? operatorOptionsList('agent_id')
-                      : state.context.filterType === 'inbox_id'
+                      : state.context.option === 'inbox_id'
                       ? operatorOptionsList('inbox_id')
-                      : state.context.filterType === 'team_id'
+                      : state.context.option === 'team_id'
                       ? operatorOptionsList('team_id')
                       : [{ value: 'null', label: 'null' }]
 
@@ -165,13 +165,13 @@ const QueryBuilderWithController = () => {
                     send({ type: 'VALUE CHANGE', value: e?.value })
                   }
                   options={
-                    state.context.filterType === 'status'
+                    state.context.option === 'status'
                       ? statusOptionsList
-                      : state.context.filterType === 'agent_id'
+                      : state.context.option === 'agent_id'
                       ? assigneeOptionsList
-                      : state.context.filterType === 'inbox_id'
+                      : state.context.option === 'inbox_id'
                       ? inboxOptionsList
-                      : state.context.filterType === 'team_id'
+                      : state.context.option === 'team_id'
                       ? teamOptionsList
                       : [{ value: 'null', label: 'null' }]
                   }
@@ -212,8 +212,8 @@ const QueryBuilderWithController = () => {
           </button>
         </div>
       </form>
-      <form >
-        <select name="" id=""></select>
+      <form>
+        <select name='' id=''></select>
       </form>
       <div>{JSON.stringify(state.context.data)}</div>
     </div>

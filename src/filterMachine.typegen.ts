@@ -14,22 +14,23 @@ export interface Typegen0 {
     delays: never;
   };
   eventsCausingActions: {
-    firstValues: "";
-    operator: "OPERATOR CHANGE";
-    setOperators: "SELECT FILTER";
-    setPossibleValues: "";
+    operator: "CHANGE_OPERATOR";
+    setDefaults: "";
+    setOperators: "";
+    setOption: "SELECT_OPTION";
+    setValues: "";
     submit: "SUBMIT";
-    value: "VALUE CHANGE";
+    value: "CHANGE_VALUE";
   };
   eventsCausingServices: {};
   eventsCausingGuards: {};
   eventsCausingDelays: {};
   matchesStates:
-    | "firstValues"
+    | "default"
     | "idle"
-    | "options"
-    | "possibleValues"
+    | "operators"
     | "submit"
+    | "values"
     | "work";
   tags: never;
 }

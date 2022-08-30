@@ -12,3 +12,5 @@ export type InputProps = {
 };
 
 export type Options = 'status' | 'agent_id' | 'inbox_id' | 'team_id';
+
+export type Operators = '_eq' | '_neq' | '_ilike' | '_nilike';
