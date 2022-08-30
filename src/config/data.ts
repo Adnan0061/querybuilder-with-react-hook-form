@@ -1,4 +1,4 @@
-import { randMessages } from './helpers/faker';
+import { randMessages } from './helpers';
 import type { InputProps } from './types';
 
 export const messages = randMessages(7);

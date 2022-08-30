@@ -5,7 +5,7 @@ import Select from "react-select";
 import { filterMachine } from "./filterMachine";
 import { assigneeOptionsList, filterOptionsList, inboxOptionsList, operatorOptionsList, statusOptionsList, teamOptionsList } from "./options";
 
-const QueryBuilderWithoutController = () => {
+export const QueryBuilderWithoutController = () => {
   const [state, send] = useMachine(filterMachine, {});
   const {
     control,
@@ -144,7 +144,6 @@ const QueryBuilderWithoutController = () => {
     </div>
   );
 };
-export default QueryBuilderWithoutController;
 
 export interface ConversationFilter {
   filter: ConversationFilterObj[];

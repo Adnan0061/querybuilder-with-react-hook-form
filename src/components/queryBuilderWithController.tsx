@@ -1,7 +1,7 @@
 import { useFieldArray, useForm } from 'react-hook-form';
 import { ImBin } from 'react-icons/im';
 import Select from 'react-select';
-import { filterMachine } from './filterMachine';
+import { filterMachine } from '../filterMachine';
 import {
   assigneeOptionsList,
   filterOptionsList,
@@ -14,7 +14,7 @@ import {
 import { useMachine } from '@xstate/react';
 import { useEffect } from 'react';
 
-const QueryBuilderWithController = () => {
+export const QueryBuilderWithController = () => {
   const [state, send] = useMachine(filterMachine);
 
   useEffect(() => {
@@ -219,7 +219,6 @@ const QueryBuilderWithController = () => {
     </div>
   );
 };
-export default QueryBuilderWithController;
 
 export interface ConversationFilter {
   filter: ConversationFilterObj[];
