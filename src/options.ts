@@ -1,4 +1,4 @@
-import { messages } from './filterMachine';
+import { messages } from "./data";
 
 export const filterOptionsList = [
   { value: 'status', label: 'Status' },

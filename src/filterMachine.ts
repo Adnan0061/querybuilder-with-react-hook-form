@@ -1,44 +1,7 @@
 import { faker } from "@faker-js/faker";
 import { assign, createMachine } from "xstate";
+import { messages } from "./data";
 import { Message } from "./types";
-
-export const messages: Message[] = [
-  {
-    assignee: faker.internet.userName(),
-    body: faker.lorem.paragraph(1),
-    inbox: faker.lorem.word(5),
-    status: [0],
-    team: faker.commerce.department(),
-  },
-  {
-    assignee: faker.internet.userName(),
-    body: faker.lorem.paragraph(1),
-    inbox: faker.lorem.word(5),
-    status: [0],
-    team: faker.commerce.department(),
-  },
-  {
-    assignee: faker.internet.userName(),
-    body: faker.lorem.paragraph(1),
-    inbox: faker.lorem.word(5),
-    status: [1],
-    team: faker.commerce.department(),
-  },
-  {
-    assignee: faker.internet.userName(),
-    body: faker.lorem.paragraph(1),
-    inbox: faker.lorem.word(5),
-    status: [0, 1, 2],
-    team: faker.commerce.department(),
-  },
-  {
-    assignee: faker.internet.userName(),
-    body: faker.lorem.paragraph(1),
-    inbox: faker.lorem.word(5),
-    status: [2],
-    team: faker.commerce.department(),
-  },
-];
 
 export const filterMachine =
   /** @xstate-layout N4IgpgJg5mDOIC5QAoC2BDAxgCwJYDswBKAOlwgBswBiAZQBUBBAJXsVAAcB7WXAF1xd87EAA9EARgCsAdhIAOAAwAWCWoCcigMxSJy+QBoQAT0kA2dSUWL1yqVpkzFAJm3qpAXw9G0WPIVIAdy4AJwBragAxAEkAGXoAUWYRbl4BIRFxBGczMwUtLTNFeRk1ZTN5Zy0jU2y85R0JHOUZKXcZeQkvbxB8Lgg4EV8cAmIySjAUnn5BYSQxRGVLV3kHGTMpfT0JGRrzLSsbOxVK9TMlzx7h-zHg8Km02czEHLlHCRszRyWJMz2EX4Hay2LSKHauRxmLReHwYEYBB4zDLzLLOKQkFZrDZbVS7EyIAC0dhIUnO8nkqnUnVsG0uXiAA */
