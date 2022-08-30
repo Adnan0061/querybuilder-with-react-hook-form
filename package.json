@@ -10,6 +10,7 @@
     "test": "vitest run",
     "clean": "rm -rf node_modules pnpm-lock.yaml && pnpm i",
     "test:watch": "vitest",
+    "test:coverage": "vitest run --coverage",
     "postinstall": "husky install"
   },
   "dependencies": {
@@ -28,6 +29,7 @@
     "@types/node": "18.7.13",
     "@types/react": "18.0.17",
     "@types/react-dom": "18.0.6",
+    "@vitest/coverage-c8": "^0.22.1",
     "autoprefixer": "^10.4.8",
     "eslint": "8.23.0",
     "eslint-config-next": "12.2.5",
