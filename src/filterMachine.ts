@@ -1,24 +1,20 @@
-import { faker } from '@faker-js/faker';
-import { assign, createMachine } from 'xstate';
-import { InputProps, Message, Options } from './types';
+import { faker } from "@faker-js/faker";
+import { assign, createMachine } from "xstate";
+import { InputProps, Message, Options } from "./types";
 
 export const operatorOptionsList = (filter: string) => {
-  if (filter === 'status') {
+  if (filter === "status") {
     return [
-      { value: '_eq', label: 'equal (=)' },
-      { value: '_neq', label: 'not equal (!=)' },
+      { value: "_eq", label: "equal (=)" },
+      { value: "_neq", label: "not equal (!=)" },
     ];
   }
-  if (
-    filter === 'agent_id' ||
-    filter === 'inbox_id' ||
-    filter === 'team_id'
-  ) {
+  if (filter === "agent_id" || filter === "inbox_id" || filter === "team_id") {
     return [
-      { value: '_eq', label: 'equal (=)' },
-      { value: '_neq', label: 'not equal (!=)' },
-      { value: '_ilike', label: 'is present' },
-      { value: '_nilike', label: 'is not present' },
+      { value: "_eq", label: "equal (=)" },
+      { value: "_neq", label: "not equal (!=)" },
+      { value: "_ilike", label: "is present" },
+      { value: "_nilike", label: "is not present" },
       // { value: "_similar", label: "begins with (case sensitive)" },
       // { value: "_nsimilar", label: "not begins with (case sensitive)" },
     ];
@@ -80,19 +76,19 @@ export const teamOptionsList: InputProps[] = messages.map((value) => ({
 }));
 
 export const statusOptionsList: InputProps[] = [
-  { value: [0, 1, 2], label: 'all' },
-  { value: [0], label: 'open' },
-  { value: [1], label: 'closed' },
-  { value: [2], label: 'snoozed' },
+  { value: [0, 1, 2], label: "all" },
+  { value: [0], label: "open" },
+  { value: [1], label: "closed" },
+  { value: [2], label: "snoozed" },
 ];
 
 function assignValues(filter: Options) {
   switch (filter) {
-    case 'status':
+    case "status":
       return statusOptionsList;
-    case 'agent_id':
+    case "agent_id":
       return assigneeOptionsList;
-    case 'team_id':
+    case "team_id":
       return teamOptionsList;
     default:
       return inboxOptionsList;
@@ -100,21 +96,21 @@ function assignValues(filter: Options) {
 }
 
 export const filterMachine =
-  /** @xstate-layout N4IgpgJg5mDOIC5QAoC2BDAxgCwJYDswBKAOlwgBswBiAZQBUBBAJXsVAAcB7WXAF1xd87EAA9EAWgCMABgDsJAMwAmAKzKZygCwAOFQDYAnMp0AaEAE9Jyw1pL7529VJVbtWgL4fzaLHkKkAO5cAE4A1nQAogAykQDC9AAEAGIAktH0kcwi3LwCQiLiCFKGhiQ6+oryslJyOoYyqmaWklUy9o6KTaqqUlpS+qpePhg4BMQkAGa4FHxgIQD6sGBUmHMQJBBgk+gArrMLXBzz6Hyh1ADyAApZjPQXzIlxABKMAHIA4pE5PPyCwkgxIhZOVavo5MpFHp9HpDDpmlYENIFPJKjJwcopGpDHJPN4QL4xgEpjM5otlqt1iQKWA1pBDscQqdztdbvdHi93l8fnl-oVJFp5CRMVVBjJ4ep9FJVOZERJweVMdooYo5Ko5I5hgTRv4JtNZvMlitaVStjt9nxEgA3dAUXY0ABqjGiAFVIk9Xp9voDcn8CoCil0SFp1BCpNL9DYXMpZcCZHYdOjDOrJeGNIotYTdaR9WSjZTINTjXSIAsbXbHc63R6ud7OL98gDQEUJIoGiRDC55G46jidDGWghVO0ZKUQ+CtIpZDi8SM-OMc6TDTSS1FYgkUulMtkfQ2+QHJAMpPYVDo5HC5Oe5FjY0jtPpFS5DCpIfpBTohviswuSQbycX1joF0ACEAFlUjYXdeX9ZtJDVEhulVVR9BhNw4QHRFIQUNRMVxaN0yhLx8XwLgtngQFv2JcgqB5P0myBO9I3KMV40FS96ikW9WxkdoHAhLoP16fpBkzHUf2CcJaMbfkEFVYUsIGKcNETGRFC4toOn47ohIGT85yJPUl3-AsNjNPYDiOE4zhCKT91ghARXKHQpAqfo5CqZRBi0dSELkSpIU7EUlT07V52JXNlwAwsV3WBkrNCWyYIY6QP2FVQBK0dzGkUKE5B89V-LbLFoyxELKMMv98xNQszIta1bXtRL6KKSFFBPDUNX6GRaghDDgRcpQkz0ZQ6nRSo5FEsKKrzGLoqi0ty0aqC6Jk5E7G6vjlC2nFGkhW9wx0QajAcWxL0MN8dEmgzF0q2aICa1bJ2PEV0WHCVPOlLin0fXD0TPDzLq-MTiVgXYACNUH4B6DyRdKSEUiMHBKFxr1vRRdHKLQsfPKp0rbWdQuu6H7IkENVGFLsxXeqUZUHVsIU07QeMaFw3yIjwgA */
+  /** @xstate-layout N4IgpgJg5mDOIC5QAoC2BDAxgCwJYDswBKAOlwgBswBiAZQBUBBAJXsVAAcB7WXAF1xd87EAA9EAWgDMADgAsJGQFYlABgCcSgExyA7FqW71ANgA0IAJ6SDSkuqPH1WgIyqlzqUakBfb+bRYeISkXBwCQrB0AKIAMlEAwvQABABiAJIx9FHMIty84cJIYpJyzsYkLh6GWp7OSsZySuZWCNJaJKoyqs66zi5S6m6qqnK+-hg4BMQkebwARlQAaugUAK5w1Lk8-IKFoOKtzjLtLi4yTmpScldyzYgy5bojR1J9dVLGMs5jIAGTwSQAGa4ABOsD4yzWGy2+V2IgOEi0WkeZXqD3sUikSNulkQyPaKjkLmMqleHzk1x+fyC0wA7lwQQBragAeQACtlGPQWcwkvEABKMAByAHEojCdkJ4ZIPOVjEjjMZtFoNA0mrjDlJbH05CMdCSlDIvFSJjTSPSmdRFowYgBVKJ8wWi8VFPKSvbFBDOZwKdTqOTqLHvHTuXR3Vq68oyLXGZzqMpSEZOE2BKbmhnM2i2gBCAFk0mxXdsCtKEPKSETrlpzmTkaozBqJCSK0bhrqiR8ffWU-9prBVnNUPw6Dn84XOMW4UUDnHVHYjcYtVonqSug2Wj1yj7jnX3ko9KMfvguBA4CJqWmyJQwBKS9PJLJbJ9F8ZdE9Bvp1OHpMoK-XdJ8-q6kaJg9maJChAU8BFrCUr3q0sgKAYuhfFcmjxqS349FIJCKp4JIuPGSj+j4fi-Kal6zLgCxgJC6zQROsEegiRK2Lq3RGHGjSaM44auHOKqlOhGgyNGPpgZewJghCKz0beU77CUwwkGoaj2MuBGDOueIGCpqg2LociKvp0ZaBJAIWoy8lwYprS-sRAFGeo5wqp4OItNIiaKFqfo+rGRqyOZfYDkOfDWcxiAUh0fRGsumJJn6fHKYJcbESJplBUQ4WlhIFLqH+HHxv6xHuN+egyN59TEkSLgjL4vhAA */
   createMachine(
     {
       context: {
         data: [],
-        filterType: 'status',
-        operatorType: '_eq',
+        filterType: "status",
+        operatorType: "_eq",
         operators: [] as InputProps[],
         values: [] as InputProps[],
-        value: '' as InputProps['value'],
+        value: "" as InputProps["value"],
         filterOptionsList: [
-          { value: 'status', label: 'Status' },
-          { value: 'agent_id', label: 'Assignee Name' },
-          { value: 'inbox_id', label: 'Inbox Name' },
-          { value: 'team_id', label: 'Team Name' },
+          { value: "status", label: "Status" },
+          { value: "agent_id", label: "Assignee Name" },
+          { value: "inbox_id", label: "Inbox Name" },
+          { value: "team_id", label: "Team Name" },
           // { value: "identifier", label: "Identifier" },
           // { value: "city", label: "City" },
           // { value: "country", label: "Country" },
@@ -124,10 +120,10 @@ export const filterMachine =
         ] as InputProps[],
         results: messages,
       },
-      tsTypes: {} as import('./filterMachine.typegen').Typegen0,
+      tsTypes: {} as import("./filterMachine.typegen").Typegen0,
       schema: {
         events: {} as
-          | { type: 'START' }
+          | { type: "START" }
           // | {
           //     type: "FILTER";
           //     status?: number[];
@@ -136,19 +132,19 @@ export const filterMachine =
           //     inbox?: string;
           //   }
           | {
-              type: 'SELECT FILTER';
+              type: "SELECT FILTER";
               value: string;
             }
           | {
-              type: 'OPERATOR CHANGE';
+              type: "OPERATOR CHANGE";
               value: string;
             }
           | {
-              type: 'VALUE CHANGE';
+              type: "VALUE CHANGE";
               value: string | number | number[];
             }
           | {
-              type: 'SUBMIT';
+              type: "SUBMIT";
             },
         // context: {} as {
         //   data: object[];
@@ -157,95 +153,53 @@ export const filterMachine =
         //   valueType: string | number[] | number;
         // },
       },
-      id: '(machine)',
-      initial: 'idle',
+      id: "(machine)",
+      initial: "idle",
       states: {
         idle: {
           on: {
             START: {
-              target: 'options',
+              target: "options",
             },
           },
         },
         options: {
           on: {
-            'SELECT FILTER': {
-              actions: ['setOperators'],
-              target: 'possibleValues',
+            "SELECT FILTER": {
+              actions: "setOperators",
+              target: "possibleValues",
             },
           },
         },
         possibleValues: {
           always: {
-            actions: ['setPossibleValues'],
-            target: 'submit',
+            actions: "setPossibleValues",
+            target: "submit",
           },
         },
         firstValues: {
           always: {
-            actions: ['firstValues'],
+            actions: "firstValues",
           },
         },
         work: {
           on: {
-            'OPERATOR CHANGE': { actions: ['operator'] },
-            'VALUE CHANGE': { actions: ['value'] },
+            "OPERATOR CHANGE": {
+              actions: "operator",
+            },
+            "VALUE CHANGE": {
+              actions: "value",
+            },
             SUBMIT: {
-              actions: 'submit',
-              target: 'submit',
+              actions: "submit",
+              target: "submit",
             },
           },
         },
-
-        // filter_selected: {
-        //   type: 'parallel',
-        //   states: {
-        //     default_operator: {
-        //       on: {
-        //         'OPERATOR CHANGE': {
-        //           actions: 'operator',
-        //           target: 'selected_operator',
-        //         },
-        //       },
-        //     },
-        //     selected_operator: {
-        //       on: {
-        //         'OPERATOR CHANGE': {
-        //           actions: 'operator',
-        //         },
-        //       },
-        //     },
-        //     'default value': {
-        //       on: {
-        //         'VALUE CHANGE': {
-        //           actions: 'value',
-        //           target: 'selected_value',
-        //         },
-        //       },
-        //     },
-        //     selected_value: {
-        //       on: {
-        //         'VALUE CHANGE': {
-        //           actions: 'value',
-        //         },
-        //       },
-        //     },
-        //   },
-        //   on: {
-        //     'SELECT FILTER': {
-        //       actions: 'filter',
-        //     },
-        //     SUBMIT: {
-        //       // actions: "submitData",
-        //       actions: () => console.log('submitted'),
-        //       target: 'submit',
-        //     },
-        //   },
-        // },
         submit: {
           on: {
             SUBMIT: {
-              actions: 'submit',
+              actions: "submit",
             },
           },
         },
@@ -290,13 +244,11 @@ export const filterMachine =
             return messages.filter((value) => {
               let output = true;
               switch (ctx.filterType) {
-                case 'status':
-                  output =
-                    JSON.stringify(value.status) ===
-                    JSON.stringify(ctx.value);
-                case 'agent_id':
+                case "status":
+                  output = JSON.stringify(value.status) === JSON.stringify(ctx.value);
+                case "agent_id":
                   output = value.assignee === ctx.value;
-                case 'team_id':
+                case "team_id":
                   output = value.team === ctx.value;
                 default:
                   output = value.inbox === ctx.value;
@@ -320,11 +272,11 @@ export const filterMachine =
         setPossibleValues: assign({
           values: (ctx) => {
             switch (ctx.filterType) {
-              case 'status':
+              case "status":
                 return statusOptionsList;
-              case 'agent_id':
+              case "agent_id":
                 return assigneeOptionsList;
-              case 'team_id':
+              case "team_id":
                 return teamOptionsList;
               default:
                 return inboxOptionsList;
