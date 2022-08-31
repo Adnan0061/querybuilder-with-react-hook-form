@@ -14,7 +14,9 @@ export interface Typegen0 {
     delays: never;
   };
   eventsCausingActions: {
+    getData: "";
     operator: "CHANGE_OPERATOR";
+    setDefaultResults: "";
     setDefaults: "";
     setOperators: "";
     setOption: "SELECT_OPTION";
@@ -27,6 +29,7 @@ export interface Typegen0 {
   eventsCausingDelays: {};
   matchesStates:
     | "default"
+    | "generation"
     | "idle"
     | "operators"
     | "submit"

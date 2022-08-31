@@ -2,22 +2,16 @@ import { useMachine } from '@xstate/react';
 import { useEffect } from 'react';
 import { useFieldArray, useForm } from 'react-hook-form';
 import { ImBin } from 'react-icons/im';
-import Select from 'react-select';
 import { filterMachine } from '../config/filterMachine';
 import { InputProps, Operators, Options } from '../config/types';
+import { Select } from './Select';
 
 export const QueryBuilderWithController = () => {
   const [state, send] = useMachine(filterMachine);
 
   useEffect(() => {
-    // send('START');
-    console.log(state.value);
-    // console.log(state.context.value);
-    console.log('results', '=>', state.context.results);
+    send('START');
   });
-
-  // console.log(state.value, state.value.filter_selected);
-  // console.log(state.context.option, state.context.operatorType, state.context.value);
 
   const {
     control,
@@ -48,7 +42,6 @@ export const QueryBuilderWithController = () => {
     // console.log(data);
     send({ type: 'SUBMIT' });
   };
-  console.log(state.value);
 
   return (
     <div className='mx-auto my-9 p-5 w-2/3 rounded-lg bg-slate-100'>
@@ -77,93 +70,33 @@ export const QueryBuilderWithController = () => {
           return (
             <div className='divide-y divide-primary' key={item.id}>
               <div className='flex justify-between items-center gap-3 mt-3 bg-slate-200 mr-5 mb-8 bg-secondary p-3 rounded-md'>
-                {/* <Controller
-                  name={`filter.${index}.filterOptions`}
-                  control={control}
-                  render={({ field }) => {
-                    return <Select className="w-[26%]" {...field} options={filterOptionsList} />;
-                  }}
-                /> */}
-
                 <Select
-                  className='w-[26%]'
-                  onChange={(e) =>
+                  operators={state.context.options}
+                  send={(msg) => {
                     send({
                       type: 'SELECT_OPTION',
-                      value: e?.value as Options,
-                    })
-                  }
-                  options={state.context.options}
-                />
-
-                {/* <Controller
-                  name={`filter.${index}.operatorOptions`}
-                  control={control}
-                  render={({ field }) => {
-                    return ( */}
-                <Select
-                  className='w-[26%]'
-                  // {...field}
-                  // defaultValue={() => {
-                  //   const a = operatorOptionsList("status");
-                  //   return a[0];
-                  // }}
-                  onChange={(e) =>
-                    send({
-                      type: 'CHANGE_OPERATOR',
-                      value: e?.value as Operators,
-                    })
-                  }
-                  options={
-                    state.context.operators
-                    //state.context.operators
-                  }
-                />
-                {/* <select
-                  name=''
-                  id=''
-                  className='w-[26%]'
-                  onChange={(e) =>
-                    state.context.option &&
-                    send({
-                      type: 'CHANGE_OPERATOR',
-                      value: e?.currentTarget.value as Operators,
-                    })
-                  }
-                >
-                  {state.context.operators.map(({ label, value }, key) => {
-                    return (
-                      <option
-                        key={key}
-                        label={label}
-                        value={value.toLocaleString()}
-                      ></option>
-                    );
-                  })}
-                </select> */}
-                {/* );
+                      value: msg as Options,
+                    });
                   }}
-                /> */}
-
-                {/* <Controller
-                  name={`filter.${index}.valueOptions`}
-                  control={control}
-                  render={({ field }) => {
-                    return ( */}
+                />
                 <Select
-                  className='w-[40%]'
-                  // {...field}
-                  onChange={(e) =>
+                  operators={state.context.operators}
+                  send={(msg) => {
+                    send({
+                      type: 'CHANGE_OPERATOR',
+                      value: msg as Operators,
+                    });
+                  }}
+                />
+                <Select
+                  operators={state.context.values}
+                  send={(msg) => {
                     send({
                       type: 'CHANGE_VALUE',
-                      value: e?.value as InputProps['value'],
-                    })
-                  }
-                  options={state.context.values}
-                />
-                {/* );
+                      value: msg as InputProps['value'],
+                    });
                   }}
-                /> */}
+                />
 
                 <button
                   onClick={() => remove(index)}
