@@ -3,17 +3,14 @@ import type { InputProps } from '../config/types';
 
 type Props = {
   operators: InputProps[] | string[];
-  send: (value: any) => void;
+  send: (value: unknown) => void;
 };
 
 export const Select: FC<Props> = ({ operators, send }) => {
   return (
     <select
-      name=''
-      id=''
-      className='w-[26%] rounded-md px-4 py-1'
+      className='w-[26%] rounded-md px-4 py-2'
       onChange={(e) => send(e.currentTarget.value)}
-      
     >
       {operators.map((data, key) => {
         if (typeof data === 'string') {

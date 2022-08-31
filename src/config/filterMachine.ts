@@ -1,5 +1,5 @@
-import { assign, createMachine, InterpreterFrom } from 'xstate';
-import { data, options } from './data';
+import { assign, createMachine } from 'xstate';
+import { messages, options } from './data';
 import { assignOperators, assignValues } from './helpers';
 import type { InputProps, Message, Operators, Options } from './types';
 
@@ -14,7 +14,6 @@ export const filterMachine = createMachine(
       value: '',
       options,
       results: [],
-      data: [],
     },
     tsTypes: {} as import('./filterMachine.typegen').Typegen0,
     schema: {
@@ -26,7 +25,10 @@ export const filterMachine = createMachine(
         value: InputProps['value'];
         options: InputProps[];
         results: Message[];
-        data: Message[];
+      },
+      services: {} as {
+        generate: { data: Message[] };
+        submit: { data: Message[] };
       },
       events: {} as
         | { type: 'START' }
@@ -61,12 +63,14 @@ export const filterMachine = createMachine(
         },
       },
       generation: {
-        always: {
-          target: 'operators',
-          actions: ['getData', 'setDefaultResults'],
+        invoke: {
+          src: 'generate',
+          onDone: {
+            actions: ['setResults'],
+            target: 'operators',
+          },
         },
       },
-
       operators: {
         always: {
           actions: 'setOperators',
@@ -93,10 +97,13 @@ export const filterMachine = createMachine(
           CHANGE_VALUE: {
             actions: 'value',
           },
-          SUBMIT: {
-            actions: 'submit',
-            target: 'submit',
-          },
+          SUBMIT: 'submission',
+        },
+      },
+      submission: {
+        invoke: {
+          src: 'submit',
+          onDone: { target: 'submit', actions: 'setResults' },
         },
       },
       submit: {
@@ -115,31 +122,6 @@ export const filterMachine = createMachine(
   },
   {
     actions: {
-      submit: assign({
-        results: (ctx) => {
-          return ctx.data.filter((value) => {
-            let output = true;
-
-            switch (ctx.option) {
-              case 'status':
-                output = (JSON.parse(ctx.value) as number[]).includes(
-                  value.status
-                );
-                break;
-              case 'agent_id':
-                output = value.assignee === ctx.value;
-                break;
-              case 'team_id':
-                output = value.team === ctx.value;
-                break;
-              default:
-                output = value.inbox === ctx.value;
-                break;
-            }
-            return output;
-          });
-        },
-      }),
       operator: assign({
         operator: (_, ev) => ev.value,
       }),
@@ -153,7 +135,7 @@ export const filterMachine = createMachine(
       }),
       setValues: assign({
         values: (ctx) => {
-          return assignValues(ctx.data, ctx.option);
+          return assignValues(messages, ctx.option);
         },
       }),
       setOption: assign({
@@ -163,15 +145,37 @@ export const filterMachine = createMachine(
         operator: (ctx) => ctx.operators[0].value as Operators,
         value: (ctx) => ctx.values[0].value,
       }),
-      getData: assign({
-        data: (_) => data,
+
+      setResults: assign({
+        results: (_, { data }) => data,
       }),
-      setDefaultResults: assign({
-        results: (ctx) => ctx.data,
-      }),
+    },
+    services: {
+      generate: async () => {
+        return messages;
+      },
+      submit: async (ctx) => {
+        return messages.filter((value) => {
+          let output = true;
+          switch (ctx.option) {
+            case 'status':
+              output = (JSON.parse(ctx.value) as number[]).includes(
+                value.status
+              );
+              break;
+            case 'agent_id':
+              output = value.assignee === ctx.value;
+              break;
+            case 'team_id':
+              output = value.team === ctx.value;
+              break;
+            default:
+              output = value.inbox === ctx.value;
+              break;
+          }
+          return output;
+        });
+      },
     },
   }
 );
-
-export type FilterMachine = typeof filterMachine;
-export type FilterSend = InterpreterFrom<FilterMachine>['send'];

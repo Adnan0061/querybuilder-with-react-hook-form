@@ -13,12 +13,7 @@ export const QueryBuilderWithController = () => {
     send('START');
   });
 
-  const {
-    control,
-    handleSubmit,
-    watch,
-    formState: { errors },
-  } = useForm<ConversationFilter>({
+  const { control, handleSubmit } = useForm<ConversationFilter>({
     defaultValues: {
       filter: [
         {
@@ -66,7 +61,6 @@ export const QueryBuilderWithController = () => {
       </div>
       <form onSubmit={handleSubmit(onSubmit)}>
         {fields.map((item, index) => {
-          // console.log(item);
           return (
             <div className='divide-y divide-primary' key={item.id}>
               <div className='flex justify-between items-center gap-3 mt-3 bg-slate-200 mr-5 mb-8 bg-secondary p-3 rounded-md'>
@@ -130,10 +124,9 @@ export const QueryBuilderWithController = () => {
           </button>
         </div>
       </form>
-      <form>
-        <select name='' id=''></select>
-      </form>
-      <div>{JSON.stringify(state.context.results)}</div>
+      <div className='mt-10 border-2 rounded-md p-2 border-yellow-800'>
+        {JSON.stringify(state.context.results)}
+      </div>
     </div>
   );
 };
