@@ -11,6 +11,6 @@ export type InputProps = {
   label: string;
 };
 
-export type Options = 'status' | 'agent_id' | 'inbox_id' | 'team_id';
+export type Options = "status" | "agent_id" | "inbox_id" | "team_id";
 
-export type Operators = '_eq' | '_neq' | '_ilike' | '_nilike';
+export type Operators = "_eq" | "_neq" | "_ilike" | "_nilike";
