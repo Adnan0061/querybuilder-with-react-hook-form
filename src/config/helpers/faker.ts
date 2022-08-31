@@ -1,11 +1,21 @@
 import { faker } from '@faker-js/faker';
 import { Message } from '../types';
 
-function randMessage(assignees: string[], teams: string[]): Message {
+type RandMessageProps = {
+  assignees: string[];
+  teams: string[];
+  inboxes: string[];
+};
+
+function randMessage({
+  assignees,
+  teams,
+  inboxes,
+}: RandMessageProps): Message {
   return {
     assignee: faker.helpers.arrayElement(assignees),
     body: faker.lorem.paragraph(2),
-    inbox: faker.lorem.word(5),
+    inbox: faker.helpers.arrayElement(inboxes),
     status: faker.datatype.number({ min: 0, max: 2 }),
     team: faker.helpers.arrayElement(teams),
   };
@@ -17,12 +27,20 @@ export function randMessages(length = 5): Message[] {
     faker.internet.userName(),
     faker.internet.userName(),
     faker.internet.userName(),
-    faker.internet.userName(),
+  ];
+  const inboxes = [
+    faker.name.jobType(),
+    faker.name.jobType(),
+    faker.name.jobType(),
+    faker.name.jobType(),
+    faker.name.jobType(),
   ];
   const teams = [
     faker.commerce.department(),
     faker.commerce.department(),
     faker.commerce.department(),
   ];
-  return Array.from({ length }).map(() => randMessage(assignees, teams));
+  return Array.from({ length }).map(() =>
+    randMessage({ assignees, teams, inboxes })
+  );
 }
