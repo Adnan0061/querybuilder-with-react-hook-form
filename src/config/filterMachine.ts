@@ -139,7 +139,7 @@ export const filterMachine = createMachine(
         },
       }),
       setOption: assign({
-        option: (_, ev) => ev.value,
+        option: (_, { value }) => value,
       }),
       setDefaults: assign({
         operator: (ctx) => ctx.operators[0].value as Operators,
