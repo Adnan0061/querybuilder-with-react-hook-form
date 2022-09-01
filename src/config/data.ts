@@ -1,7 +1,7 @@
 import { randMessages } from './helpers';
 import type { InputProps } from './types';
 
-export const messages = randMessages(7);
+export const messages = randMessages(20);
 
 export const options: InputProps[] = [
   { value: 'status', label: 'Status' },

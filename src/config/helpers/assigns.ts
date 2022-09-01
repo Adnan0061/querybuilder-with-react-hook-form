@@ -1,30 +1,32 @@
-import { messages } from '../data';
-import type { InputProps, Options } from '../types';
+import type { InputProps, Message, Options } from '../types';
 
-export function assignValues(filter: Options): InputProps[] {
+function mapping<T>(messages: Message[], mapper: (val: Message) => T) {
+  const mappeds = messages.map(mapper);
+  const distincts = Array.from(new Set(mappeds));
+  return distincts.map((value) => ({
+    value: value,
+    label: value,
+  }));
+}
+
+export function assignValues(
+  messages: Message[],
+  filter: Options
+): InputProps[] {
   switch (filter) {
     case 'status':
       return [
-        { value: [0, 1, 2], label: 'all' },
-        { value: [0], label: 'open' },
-        { value: [1], label: 'closed' },
-        { value: [2], label: 'snoozed' },
+        { value: '[0, 1, 2]', label: 'all' },
+        { value: '[0]', label: 'open' },
+        { value: '[1]', label: 'closed' },
+        { value: '[2]', label: 'snoozed' },
       ];
     case 'agent_id':
-      return messages.map((value) => ({
-        value: value.assignee,
-        label: value.assignee,
-      }));
+      return mapping(messages, (value) => value.assignee);
     case 'team_id':
-      return messages.map((value) => ({
-        value: value.team,
-        label: value.team,
-      }));
+      return mapping(messages, (value) => value.team);
     default:
-      return messages.map((value) => ({
-        value: value.inbox,
-        label: value.inbox,
-      }));
+      return mapping(messages, (value) => value.inbox);
   }
 }
 
