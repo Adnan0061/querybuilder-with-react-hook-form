@@ -159,7 +159,7 @@ export const filterMachine = createMachine(
           let output = true;
           switch (ctx.option) {
             case "status":
-              output = (JSON.parse(ctx.value) as number[]).includes(value.status);
+              output = ctx.value === value.status;
               break;
             case "agent_id":
               output = value.assignee === ctx.value;

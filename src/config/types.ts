@@ -1,5 +1,5 @@
 export interface Message {
-  status: number;
+  status: string;
   assignee: string;
   team: string;
   inbox: string;
@@ -7,10 +7,10 @@ export interface Message {
 }
 
 export type InputProps = {
-  value: string ;
+  value: string;
   label: string;
 };
 
-export type Options = 'status' | 'agent_id' | 'inbox_id' | 'team_id';
+export type Options = "status" | "agent_id" | "inbox_id" | "team_id";
 
-export type Operators = '_eq' | '_neq' | '_ilike' | '_nilike';
+export type Operators = "_eq" | "_neq" | "_ilike" | "_nilike";
