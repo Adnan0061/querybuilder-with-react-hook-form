@@ -4,7 +4,7 @@ import { assignOperators, assignValues } from "./helpers";
 import type { InputProps, Message, Operators, Options } from "./types";
 
 export const filterMachine =
-  /** @xstate-layout N4IgpgJg5mDOIC5QAoC2BDAxgCwJYDswBKAOlwgBswBiAZQBUBBAJXsVAAcB7WXAF1xd87EAA9EAJgAMAThIAOAGwSALAHZF8mWoDMKgKxKANCACeiAIyK5U21It7NmlTsUBfNybRY8hUlw4wACd0Pi4g2GoRbl4BIRFxBBcLEilVGX0VFWt9XLUTcwQLQxIdMr0JCXkdJSkdDy8MHAJiEgA3dAoAVzgopBAY-kFhfsTNKRJ9dKkNJUVZfLNLEvKKqpr5+s8Qb2a-EggwADN0Loo+Ps4eIfjRxBkJHRIZF-laq0ULC3kC5flS8oqSrVWpbRo+FqkADu4QA1tQAMIACUYADkAOIAUQA+gB5AAKmOYjHouOY0WucRGoESFgkuRIymy8kMukUag5vwQ8hUJGk1jULwkxSkimUDR2TV8rRhQXhyLRWOxADVGAAZACqmIpsWGCUsEjUE0NMh0r2F1nki0KKgsclWZSN+ik8ikKglu2l0LhdA1ACEALIASTY-UGVP1RXsihI3zZLOjaR+SwQqn0APKMiBQPZaQ9UshJFgXQARqh+IiURicQSiSSyTqbtSxPdHs9Xu8xV9k4UyhIM2VFPpFNldGp8xD9sWyxWFdWVeqtY2I3cEA8ni8ZG95h9u1zbfaHU6XW6J3tiHRMWrMQj6Hj8fQg7jUcu9augVyJNZUnZRWKqlMegeNs+BcIc8D9J6hbkFQr63DSlgOKkTJZtkYpKC8XJWE8zq2BYKg8nSWgOGeXokAEwShOEEFXLq8EtggOiyO2LyKDoVQcZU+hYWo-arNkehZPIhr6KRhYdN0cBwc2iSGCk8h0kCDzsjI8wSDxfHlI8XxJroonbFB+yHCcZx8NJkYKRM1hbtUyj6C83waQOAlZARhryGJ+yyrC5mrt26a2o8Lium6rift+v4uux+FWC4nmtNO5ZmWGlJvgh3IzKUygbMJ9j6GoKifkaqTVHoMxmipMjxUQvnpY5KbGqK2jjLotjKPYHnAUAA */
+  /** @xstate-layout N4IgpgJg5mDOIC5QAoC2BDAxgCwJYDswBKAOlwgBswBiRUABwHtZcAXXR-OkAD0QEYArACYSADgDME4fwBsswQE5hY2RIAsAGhABPRDPUkA7OvUT+Y4YvUAGdYomCAvk+1oseQqUb0wAJ3RWRj9YWiQQJhZ2Tm4+BHNFY2FbCTFBQXU0kSNtPQQhIxJpdUFZGX5k9OEJFzcMHAJiEgA3dAoAVzgwhmY2Di5wuNLE4WrFRX4jI35FGwdcgUFC4tLyypEa1xB3Bq8SCDAAM3R2ilZuiN7ogdA4sQqSWUUxRSMbfneJ-gkF-KWiyplfgVEobWrbeqeJoAd2CAGtqABhAASAEEAHIAcQAogB9ADyAAVsQAlVEAFXxJO4kT6MUGAn4pgBEiMT0UgheU2Ev0kJBm93GRkE73eGXBOyhpFhfgRKIxONxADVUQAZACq2JpV36sUZnJIrzEmQks3Zll+6gsANBjiksmFmzqHka0vh1AAyuqAEIAWQAkuTtVFdQyELNDGJVCVhJynjZkr9koYVkpYypZDNnFtJa6SLB2gAjVBsJForF4omkilU4N0m68RD3URPLmimbAn66RBSfg29JqBzCWSqCWQvMF4ul+UV5VqzV1656hDNx7PV7tr5dvJWsT9wR2iQOg9jl1eT3Y1XYxHkgmE8n+-Hoxeh26IAC0TyKNjmQgm6jeOxBCTB1DQmUZZHsJkAOHFwtnwRgDngcJcz2cgqBfek33yYxMyWLIBQUcweW7fIyhIKDqnUeRnmNGxs2dXYmh8fxAmCZCehDLDG3yZ41wjIwj2bCxfkmPsVnkSYJBsKYHVPJjSFaDo4Ewhs4gAmwSEEYFtKkA9Y1eUTpn7dQrFSKNRiMeSpX2I4TjOVTl3ZIp1wdaYKgmbcBGMiTM0EmSpmsvMZThRyww+Ex+WBUyjCjJZHFkEDCnGCoVCEH9OwYiEzyaScS1YMLsKeWQSBsTMNNmDIlhAxIZJKWR6JHYQTDEIKvEKnj3wcb9fyUJlAJKX5300sR3jZaMlAUTkyrgpwgA */
   createMachine(
     {
       context: {
@@ -55,7 +55,9 @@ export const filterMachine =
       },
       states: {
         idle: {
-          always: "operators",
+          always: {
+            target: "operators",
+          },
         },
         operators: {
           always: {
